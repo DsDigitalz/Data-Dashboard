@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { ThreatSkeleton } from "./SkeletonLoader";
+import ErrorMessage from "./ErrorMessage";
 import {
   FiShield,
   FiCloud,
@@ -104,15 +106,7 @@ function SectionHeader({ icon: Icon, iconColor, title, action, onAction }) {
   );
 }
 
-function PulseRow({ children }) {
-  return (
-    <div className="space-y-2.5">
-      {[1, 2, 3].map(i => (
-        <div key={i} className="h-14 rounded-xl bg-zinc-800/40 animate-pulse" style={{ opacity: 1 - i * 0.2 }} />
-      ))}
-    </div>
-  );
-}
+
 
 // ─── CVE Chart ─────────────────────────────────────────────────────────────────
 function CveChart({ stats }) {
@@ -344,10 +338,11 @@ export default function OverviewDashboard({ setActiveTab }) {
                 <span className="text-xs">Loading threat data…</span>
               </div>
             ) : errors.cve ? (
-              <div className="text-center text-xs text-zinc-500">
-                <FiAlertTriangle className="w-6 h-6 text-amber-500 mx-auto mb-2" />
-                {errors.cve}
-              </div>
+              <ErrorMessage
+                title="Severity Feed Degraded"
+                message={errors.cve}
+                retryAction={fetchCves}
+              />
             ) : (
               <CveChart stats={cveStats} />
             )}
@@ -373,12 +368,13 @@ export default function OverviewDashboard({ setActiveTab }) {
 
           <div className="flex-1 flex flex-col justify-center gap-3 my-4">
             {wxLoading ? (
-              <PulseRow />
+              <ThreatSkeleton count={3} />
             ) : errors.weather ? (
-              <div className="text-center text-xs text-zinc-500">
-                <FiAlertTriangle className="w-5 h-5 text-amber-500 mx-auto mb-1" />
-                {errors.weather}
-              </div>
+              <ErrorMessage
+                title="Weather Stations Offline"
+                message={errors.weather}
+                retryAction={fetchWeather}
+              />
             ) : (
               offices.map(o => {
                 const cur = weather[o.id]?.current;
@@ -427,15 +423,13 @@ export default function OverviewDashboard({ setActiveTab }) {
 
           <div className="space-y-2.5">
             {cveLoading ? (
-              <PulseRow />
+              <ThreatSkeleton count={3} />
             ) : errors.cve ? (
-              <div className="text-center py-6 text-xs text-zinc-500">
-                <FiAlertTriangle className="w-6 h-6 text-amber-500 mx-auto mb-2" />
-                {errors.cve}
-                <button onClick={fetchCves} className="block mx-auto mt-3 text-indigo-400 hover:text-indigo-300 flex items-center gap-1 cursor-pointer">
-                  <FiRefreshCw className="w-3 h-3" /> Retry
-                </button>
-              </div>
+              <ErrorMessage
+                title="Vulnerability Log Offline"
+                message={errors.cve}
+                retryAction={fetchCves}
+              />
             ) : topCves.length === 0 ? (
               <p className="text-center text-xs text-zinc-600 py-6">No CVE data available.</p>
             ) : (
@@ -479,15 +473,13 @@ export default function OverviewDashboard({ setActiveTab }) {
 
           <div className="space-y-2.5">
             {newsLoading ? (
-              <PulseRow />
+              <ThreatSkeleton count={3} />
             ) : errors.news ? (
-              <div className="text-center py-6 text-xs text-zinc-500">
-                <FiAlertTriangle className="w-6 h-6 text-amber-500 mx-auto mb-2" />
-                {errors.news}
-                <button onClick={fetchNews} className="block mx-auto mt-3 text-indigo-400 hover:text-indigo-300 flex items-center gap-1 cursor-pointer">
-                  <FiRefreshCw className="w-3 h-3" /> Retry
-                </button>
-              </div>
+              <ErrorMessage
+                title="Intel Bulletin Offline"
+                message={errors.news}
+                retryAction={fetchNews}
+              />
             ) : topNews.length === 0 ? (
               <p className="text-center text-xs text-zinc-600 py-6">No articles available.</p>
             ) : (
