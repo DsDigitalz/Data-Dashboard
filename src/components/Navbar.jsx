@@ -64,14 +64,17 @@ export default function HeaderNavbar({ activeTab, setActiveTab, apiStatuses = {}
             onClick={() => setActiveTab("dashboard")} 
             className="flex items-center space-x-2.5 cursor-pointer group"
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-blue-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/10 group-hover:scale-105 transition-transform duration-300">
+            {/* <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-blue-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/10 group-hover:scale-105 transition-transform duration-300">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
+            </div> */}
+            <div className="w-35">
+              <img src="/apexium logo.png" alt="Apexium technologies" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-zinc-50 via-zinc-100 to-zinc-400 bg-clip-text text-transparent tracking-tight font-sans">
+            {/* <span className="text-xl font-bold bg-gradient-to-r from-zinc-50 via-zinc-100 to-zinc-400 bg-clip-text text-transparent tracking-tight font-sans">
               Apexium
-            </span>
+            </span> */}
           </div>
 
           {/* Connected Badges with Dropdown Trigger */}
@@ -208,7 +211,7 @@ export default function HeaderNavbar({ activeTab, setActiveTab, apiStatuses = {}
         </div>
 
         {/* Right-Side Controls */}
-        <div className="hidden md:flex items-center space-x-4">
+        {/* <div className="hidden md:flex items-center space-x-4">
           <div className="text-right">
             <p className="text-[10px] text-zinc-500 uppercase tracking-widest leading-tight">Terminal Node</p>
             <p className="text-xs font-semibold text-zinc-300">Apexium-HQ-01</p>
@@ -216,7 +219,7 @@ export default function HeaderNavbar({ activeTab, setActiveTab, apiStatuses = {}
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-50 to-purple-600 flex items-center justify-center text-sm font-bold text-white shadow-md ring-2 ring-indigo-500/20">
             AP
           </div>
-        </div>
+        </div> */}
 
         {/* Mobile Toggle Button */}
         <div className="md:hidden flex items-center space-x-3">
@@ -272,7 +275,7 @@ export default function HeaderNavbar({ activeTab, setActiveTab, apiStatuses = {}
               })}
               
               {/* Mobile Info Widget */}
-              <div className="pt-4 border-t border-zinc-900 px-4 flex items-center justify-between text-xs text-zinc-500">
+              {/* <div className="pt-4 border-t border-zinc-900 px-4 flex items-center justify-between text-xs text-zinc-500">
                 <span className="flex items-center space-x-1.5">
                   <span className={`w-1.5 h-1.5 rounded-full ${
                     overallStatus === "online" ? "bg-emerald-500" : 
@@ -282,7 +285,7 @@ export default function HeaderNavbar({ activeTab, setActiveTab, apiStatuses = {}
                   <span>Feeds: {overallStatus}</span>
                 </span>
                 <span className="font-mono">Node: Apexium-HQ-01</span>
-              </div>
+              </div> */}
             </div>
           </motion.div>
         )}
